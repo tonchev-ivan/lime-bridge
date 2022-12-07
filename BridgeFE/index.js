@@ -376,8 +376,9 @@ function transfer() {
 
     var amount = $("#amount").val();
     var tokenAddressId = $("#address").val();
+    var destinationChainId = $("#network").val();
     // catch the error
-    contract.methods.burn(supportedTokens[metamaskNetworkId][tokenAddressId], amount, 11).send({ from: account })
+    contract.methods.burn(supportedTokens[metamaskNetworkId][tokenAddressId], amount, destinationChainId).send({ from: account })
         .on('transactionHash', function (hash) {
             console.log('hash', ethscanLinks[metamaskNetworkId] + hash);
             alert("Transaction: " + ethscanLinks[metamaskNetworkId] + hash);
@@ -387,7 +388,6 @@ function transfer() {
         })
         .on('confirmation', function (confirmationNumber, receipt) {
             console.log(receipt.Status.Value);
-            // alert("Transaction confirmed");
         })
         .on('error', function (error) {
             var text = error.message.split("VM Exception while processing transaction:")[1];
