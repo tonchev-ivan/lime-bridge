@@ -34,10 +34,10 @@
             <div class="form-group">
                 <table>
                     <tr>
-                        <td><label for="network">Choose network to bridge to:</label> </td>
+                        <td><label for="network" class="mr-sm-2 d-block">Choose network to bridge to:</label> </td>
                         <td>
                             <form>
-                                <select class="form-control" id="network">
+                                <select class="form-control mr-sm-2" id="network">
                                     <option value="5">Goerli Testnet</option>
                                     <option value="421613">Arbitrum Goerli</option>
                                 </select>
@@ -45,17 +45,17 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="address">Choose Token/Address:</label> </td>
+                        <td><label for="address" class="mr-sm-2 d-block">Choose Token/Address:</label> </td>
                         <td>
-                            <select class="form-control" id="address">
+                            <select class="form-control mr-sm-2" id="address">
                                 <option value="LTT">Lime Test Token</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="amount">Choose amount:</label> </td>
+                        <td><label for="amount" class="mr-sm-2 d-block">Choose amount:</label> </td>
                         <td>
-                            <input type="number" class="form-control" id="amount"
+                            <input type="number" class="form-control mr-sm-2" id="amount"
                                 oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');">
                         </td>
                     </tr>
@@ -67,9 +67,9 @@
                     <tr>
                         <td> </td>
                         <td>
-                            <a href="#" onclick="initiateTransfer()" class="btn btn-primary">Transfer</a>
+                            <a href="#" onclick="initiateTransfer()" class="btn btn-primary mt-2 mr-2">Transfer</a>
                         </td>
-                        <td><a href="claim.html" class="btn btn-primary">Claim</a></td>
+                        <td><a href="claim.html" class="btn btn-primary mt-2 mr-2">Claim</a></td>
                     </tr>
                 </table>
             </div>
