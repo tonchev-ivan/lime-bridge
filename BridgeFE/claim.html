@@ -25,12 +25,16 @@
     <title>LimeAcademy ERC20 Token Bridge</title>
 
     <script>
+
         function fillTable() {
             var table = document.getElementById("trxs");
-            table.innerHTML = "";
+            // clear existing rows (not including headers)
+            for (var i = table.rows.length - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
             // fill the table
             for (var i = 0; i < transactions.length; i++) {
-                var row = table.insertRow(i);
+                var row = table.insertRow(i + 1);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
@@ -49,6 +53,15 @@
 
 <body class="container">
     <table id="trxs" class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Amount</th>
+                <th>Detination Chain Id</th>
+                <th>Detination Token Address</th>
+                <th></th>
+            </tr>
+        </thead>
     </table>
     <button type="button" class="btn btn-primary" onclick="loadTrxs()">Refresh Transactions</button>
 </body>
