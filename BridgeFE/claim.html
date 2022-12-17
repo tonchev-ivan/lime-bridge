@@ -20,13 +20,29 @@
 
     <!-- Web3 -->
     <script src="./node_modules/web3/dist/web3.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.4.umd.min.js" type="text/javascript"> </script>
     <script src="./index.js"></script>
 
     <title>LimeAcademy ERC20 Token Bridge</title>
 
     <script>
+        $(window).on('load', async () => {
+            // load transactions
+            await ethereum.enable();
+            transactions = await loadTrxs();
+            fillTable(transactions);
 
-        function fillTable() {
+            window.contract.on("TokensClaimed", async (
+                _transactionId,
+                requester,
+                amount,
+                timestamp) => {
+                alert("TokensClaimed");
+
+                $("#button-" + _transactionId).html("Claimed");
+            });
+        });
+        function fillTable(transactions) {
             var table = document.getElementById("trxs");
             // clear existing rows (not including headers)
             for (var i = table.rows.length - 1; i > 0; i--) {
@@ -40,11 +56,13 @@
                 var cell3 = row.insertCell(2);
                 var cell4 = row.insertCell(3);
                 var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
                 cell1.innerHTML = i;
-                cell2.innerHTML = transactions[i].amount;
-                cell3.innerHTML = transactions[i].destinationChainId;
-                cell4.innerHTML = transactions[i].destinationTokenAddress;
-                cell5.innerHTML = "<button type='button' class='btn btn-primary' onclick='claim(" + i + ")'" + (transactions[i].claimed ? "disabled>Claimed" : ">Claim") + "</button>";
+                cell2.innerHTML = transactions[i].fromChainId;
+                cell3.innerHTML = transactions[i].toChainId;
+                cell4.innerHTML = transactions[i].tokenAddress;
+                cell5.innerHTML = ethers.utils.formatEther(transactions[i].amount.toString());
+                cell6.innerHTML = "<button id='button-" + i + "' type='button' class='btn btn-primary' onclick='claim(" + i + ")'" + (transactions[i].claimed ? "disabled>Claimed" : ">Claim") + "</button>";
             }
         }
 
@@ -56,14 +74,14 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>From Network</th>
+                <th>To Network</th>
+                <th>Token</th>
                 <th>Amount</th>
-                <th>Detination Chain Id</th>
-                <th>Detination Token Address</th>
                 <th></th>
             </tr>
         </thead>
     </table>
-    <button type="button" class="btn btn-primary" onclick="loadTrxs()">Refresh Transactions</button>
 </body>
 
 </html>

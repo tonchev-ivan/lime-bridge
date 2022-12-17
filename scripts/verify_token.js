@@ -2,8 +2,8 @@ const hre = require("hardhat");
 async function main() {
 
     await hre.run("verify:verify", {
-        address: process.env.ARBITRUM_TOKEN_CONTRACT_ADDRESS,
-        constructorArguments: ["0x944987212E9AE913d35BC09b0B899C6bFa68D8F9"],
+        address: process.env.TOKEN_ADDRESS,
+        constructorArguments: [process.env.TOKEN_NAME, process.env.TOKEN_SYMBOL, process.env.BRIDGE_ADMIN_ADDRESS],
     });
 }
 main()

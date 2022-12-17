@@ -1,12 +1,11 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const LimeTestToken = await ethers.getContractFactory("LimeTestToken");
-  const token = await LimeTestToken.deploy("0x944987212E9AE913d35BC09b0B899C6bFa68D8F9");
-
+  const Token = await ethers.getContractFactory("MyToken");
+  const token = await Token.deploy(process.env.TOKEN_NAME, process.env.TOKEN_SYMBOL, process.env.BRIDGE_ADMIN_ADDRESS);
   console.log(
-    'Bridge deployed',
-  );
+        'Token deployed',
+      );
 
   console.log("Token address:", token.address);
 }
