@@ -59,8 +59,8 @@
                 var cell5 = row.insertCell(4);
                 var cell6 = row.insertCell(5);
                 cell1.innerHTML = i;
-                cell2.innerHTML = transactions[i].fromChainId;
-                cell3.innerHTML = transactions[i].toChainId;
+                cell2.innerHTML = supportedNetworks[transactions[i].fromChainId] || transactions[i].fromChainId;
+                cell3.innerHTML = supportedNetworks[transactions[i].toChainId] || transactions[i].toChainId;
 
                 if (!cachedSymbols[transactions[i].tokenAddress]) {
                     try {
