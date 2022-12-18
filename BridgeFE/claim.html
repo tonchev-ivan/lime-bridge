@@ -42,8 +42,9 @@
                 $("#button-" + _transactionId).html("Claimed");
             });
         });
-        function fillTable(transactions) {
+        async function fillTable(transactions) {
             var table = document.getElementById("trxs");
+            var cachedSymbols = {};
             // clear existing rows (not including headers)
             for (var i = table.rows.length - 1; i > 0; i--) {
                 table.deleteRow(i);
@@ -60,7 +61,24 @@
                 cell1.innerHTML = i;
                 cell2.innerHTML = transactions[i].fromChainId;
                 cell3.innerHTML = transactions[i].toChainId;
-                cell4.innerHTML = transactions[i].tokenAddress;
+
+                if (!cachedSymbols[transactions[i].tokenAddress]) {
+                    try {
+                        var tokenContract = new ethers.Contract(transactions[i].tokenAddress, tokenAbi, window.provider.getSigner());
+                        var symbol = await tokenContract.symbol();
+                        cachedSymbols[transactions[i].tokenAddress] = symbol;
+                    } catch (e) {
+                        console.log(e);
+                        cachedSymbols[transactions[i].tokenAddress] = transactions[i].tokenAddress;
+                    }
+                }
+
+                var link = $("<a>");
+                link.attr("href", ethscanLinks[transactions[i].toChainId] + "address/" + transactions[i].tokenAddress);
+                link.append(cachedSymbols[transactions[i].tokenAddress]);
+                cell4.appendChild(link[0]);
+               
+
                 cell5.innerHTML = ethers.utils.formatEther(transactions[i].amount.toString());
                 cell6.innerHTML = "<button id='button-" + i + "' type='button' class='btn btn-primary' onclick='claim(" + i + ")'" + (transactions[i].claimed ? "disabled>Claimed" : ">Claim") + "</button>";
             }

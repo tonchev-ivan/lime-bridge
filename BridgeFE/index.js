@@ -63,8 +63,8 @@ const supportedNetworks = {
   '421613': 'Arbitrum Goerli'
 };
 const ethscanLinks = {
-  '5': 'https://goerli.etherscan.io/tx/',
-  '421613': 'https://explorer.arbitrum.io/#/tx/'
+  '5': 'https://goerli.etherscan.io/',
+  '421613': 'https://goerli.arbiscan.io/'
 }
 
 /**
